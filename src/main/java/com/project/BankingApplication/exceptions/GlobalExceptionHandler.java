@@ -16,4 +16,12 @@ public class GlobalExceptionHandler {
         errorMap.put("error: ", e.getMessage());
         return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<?> notFoundExceptionHandler(InvalidException e) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("error: ", e.getMessage());
+        return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+    }
 }
