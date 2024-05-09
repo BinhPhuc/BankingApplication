@@ -22,8 +22,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(request -> {
                     request
                             .requestMatchers(
-                                    "api/v1/login",
-                                    "api/v1/register"
+                                    "api/v1/user/login",
+                                    "api/v1/user/register"
                             ).permitAll().anyRequest().authenticated();
                 })
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> {
