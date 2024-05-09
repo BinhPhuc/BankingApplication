@@ -14,3 +14,14 @@ spring:
       hibernate:
       dialect: org.hibernate.dialect.MySQL8Dialect
       format_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: pham.phuc.binh.271106@gmail.com
+    password: vanh wpti gjnx braw
+    properties:
+      mail:
+        smtp:
+          auth=true:
+          starttls:
+            enable=true:
