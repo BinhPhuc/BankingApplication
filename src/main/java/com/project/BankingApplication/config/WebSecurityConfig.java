@@ -23,7 +23,8 @@ public class WebSecurityConfig {
                     request
                             .requestMatchers(
                                     "api/v1/user/login",
-                                    "api/v1/user/register"
+                                    "api/v1/user/register",
+                                    "api/v1/user/**"
                             ).permitAll().anyRequest().authenticated();
                 })
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> {
