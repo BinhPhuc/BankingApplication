@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,8 +28,8 @@ public class UserService implements IUserService {
     private final JwtTokenService jwtService;
     private final AuthenticationManager authenticationManager;
     @Override
-    public User register(RegisterDTO registerDTO) throws NotFoundException {
-        User user = User
+    public com.project.BankingApplication.entities.User register(RegisterDTO registerDTO) throws NotFoundException {
+        com.project.BankingApplication.entities.User user = com.project.BankingApplication.entities.User
                 .builder()
                 .email(registerDTO.getEmail())
                 .fullName(registerDTO.getFullName())
@@ -43,11 +44,11 @@ public class UserService implements IUserService {
 
     @Override
     public String login(LoginDTO loginDTO) throws NotFoundException, InvalidException {
-        Optional<User> existingUser = userRepository.findUserByEmail(loginDTO.getEmail());
+        Optional<com.project.BankingApplication.entities.User> existingUser = userRepository.findUserByEmail(loginDTO.getEmail());
         if(existingUser.isEmpty()) {
             throw new NotFoundException("User not found");
         }
-        User user = existingUser.get();
+        com.project.BankingApplication.entities.User user = existingUser.get();
         if(!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             throw new InvalidException("Password are not matching");
         }
@@ -56,5 +57,19 @@ public class UserService implements IUserService {
         );
         authenticationManager.authenticate(uPassToken);
         return jwtService.generateToken(user);
+    }
+
+    @Override
+    public com.project.BankingApplication.entities.User getUserById(Long id) throws NotFoundException {
+        Optional<com.project.BankingApplication.entities.User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isEmpty()) {
+            throw new NotFoundException("User not found with id = " + id);
+        }
+        return optionalUser.get();
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        return userRepository.findAll();
     }
 }

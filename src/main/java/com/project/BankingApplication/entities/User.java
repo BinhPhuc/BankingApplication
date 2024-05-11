@@ -27,6 +27,8 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
+    private Double balance;
+
     @ManyToOne
     @JsonProperty("role_id")
     private Role role;
